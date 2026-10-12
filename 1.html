@@ -1,0 +1,1065 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Smart Career Guidance</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #7657f6;
+    --blue: #3296f5;
+    --text: #202747;
+    --muted: #75809b;
+    --border: #e6e9f5;
+    --surface: #ffffff;
+    --bg: #f5f7ff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.navbar {
+    height: 76px;
+    background: #171b3b;
+    color: white;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+/* .logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+} */
+
+
+.brand { font-size: 22px; font-weight: 800; }
+.brand span { color: #a998ff; }
+
+.navlinks { display: flex; gap: 24px; }
+.navlinks a {
+    color: #d7dcf6;
+    text-decoration: none;
+    font-size: 13px;
+}
+.navlinks a:hover { color: white; }
+
+.navbutton {
+    background: #7759f6;
+    color: white;
+    border: 0;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 58px 6%;
+    background: linear-gradient(115deg, #fff 0%, #edf0ff 55%, #e2f5ff 100%);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: #c5b8ff55;
+    filter: blur(65px);
+    right: 3%;
+    top: -100px;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+.eyebrow {
+    display: inline-block;
+    padding: 8px 13px;
+    border-radius: 25px;
+    color: #6749e8;
+    background: #e9e5ff;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(34px, 5vw, 55px);
+    letter-spacing: -2px;
+    line-height: 1.12;
+    margin-bottom: 18px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #8055f6, #168fdb);
+    color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    color: #65708d;
+    max-width: 600px;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 28px;
+}
+
+.stat strong { display: block; font-size: 19px; }
+.stat span { display: block; color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+.container {
+    max-width: 1450px;
+    padding: 30px 4%;
+    margin: auto;
+}
+
+.section-title { font-size: 22px; margin-bottom: 8px; }
+.section-subtitle { color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+.dashboard {
+    display: grid;
+    grid-template-columns: minmax(310px, 0.88fr) minmax(0, 1.25fr);
+    gap: 22px;
+    align-items: start;
+    margin-top: 24px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 25px;
+    box-shadow: 0 7px 30px #29345a08;
+    min-width: 0;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 22px;
+}
+
+.heading-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #e9e4ff, #dbeafe);
+    font-size: 22px;
+}
+
+.card-heading h2 { font-size: 18px; }
+.card-heading p { color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+.field { margin-bottom: 19px; }
+
+.field > label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+input[type="text"], input[type="email"], select, textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #dfe4f0;
+    background: #fcfdff;
+    color: var(--text);
+    border-radius: 9px;
+    outline: none;
+    font-size: 13px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #7657f619;
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+.skill-note { color: var(--muted); font-size: 11px; margin: -3px 0 12px; }
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.skill-option { position: relative; }
+.skill-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.skill-option label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 9px;
+    min-height: 48px;
+    border: 1px solid #e1e6f3;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.skill-option label:hover {
+    border-color: #a99aff;
+    transform: translateY(-1px);
+}
+
+.skill-option input:checked + label {
+    background: #f0edff;
+    border-color: #8063f5;
+    color: #6748e5;
+    box-shadow: 0 0 0 1px #8063f522;
+}
+
+.skill-option input:focus-visible + label {
+    outline: 2px solid #7657f6;
+}
+
+.skill-emoji { font-size: 17px; }
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background: linear-gradient(100deg, #7955f5, #3689f7);
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 6px 16px #7955f52b;
+    transition: .2s;
+}
+
+.primary-btn:hover { transform: translateY(-2px); }
+
+.secondary-btn {
+    padding: 10px 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.button-row { display: flex; gap: 10px; margin-top: 14px; }
+.button-row button { flex: 1; }
+
+.error {
+    color: #b91c1c;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.results { display: grid; gap: 18px; }
+
+.welcome {
+    padding: 38px 15px;
+    text-align: center;
+    background: linear-gradient(140deg, #faf9ff, #f0f7ff);
+    border-radius: 13px;
+    border: 1px dashed #d5d9ef;
+}
+
+.welcome-icon { font-size: 42px; margin-bottom: 12px; }
+.welcome h3 { font-size: 17px; margin-bottom: 9px; }
+.welcome p { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+.result-banner {
+    background: linear-gradient(120deg, #e8e3ff, #e0f3ff);
+    border-radius: 14px;
+    padding: 22px;
+}
+
+.result-banner .small { font-size: 12px; color: #5e6385; }
+.result-banner h2 { font-size: 22px; margin: 8px 0; }
+.result-banner p { color: #5e6885; font-size: 12px; line-height: 1.8; }
+
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.match-stat {
+    background: #fafaff;
+    border: 1px solid var(--border);
+    padding: 15px 10px;
+    border-radius: 12px;
+}
+
+.match-stat strong { display: block; font-size: 20px; color: #7657f6; }
+.match-stat span { font-size: 10px; color: var(--muted); display: block; margin-top: 6px; }
+
+.panel-title {
+    font-size: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-title small { color: var(--muted); font-size: 10px; font-weight: 400; }
+
+.career-card {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    margin-bottom: 10px;
+    transition: .2s;
+}
+
+.career-card:hover {
+    border-color: #b6a8ff;
+    box-shadow: 0 5px 18px #7657f60d;
+}
+
+.career-top { display: flex; align-items: flex-start; gap: 12px; }
+.career-icon {
+    flex-shrink: 0;
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    background: #efebff;
+    border-radius: 12px;
+    font-size: 21px;
+}
+
+.career-info { flex: 1; min-width: 0; }
+.career-info h4 { font-size: 13px; margin: 3px 0 6px; }
+.career-info p { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+.match-percent { color: #6748e5; font-size: 13px; font-weight: 800; white-space: nowrap; }
+
+.progress-track {
+    height: 6px;
+    border-radius: 10px;
+    background: #ebeaf6;
+    margin: 13px 0 8px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8b5cf6, #3897f7);
+    border-radius: 10px;
+    transition: width .7s ease;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.tag {
+    font-size: 10px;
+    background: #f0edff;
+    color: #6448d7;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+.roadmap-item {
+    position: relative;
+    padding: 0 0 20px 34px;
+    border-left: 2px solid #e6e0ff;
+    margin-left: 11px;
+}
+
+.roadmap-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+.roadmap-dot {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #eee9ff;
+    color: #704fe7;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.roadmap-item h4 { font-size: 12px; margin-bottom: 5px; }
+.roadmap-item p { color: var(--muted); font-size: 11px; line-height: 1.8; }
+
+.tips-list { list-style: none; }
+.tips-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eff1f7;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #53607b;
+}
+.tips-list li:last-child { border-bottom: 0; }
+.tips-list li::before { content: "✓"; color: #10a37f; font-weight: 800; margin-right: 10px; }
+
+.disclaimer {
+    background: #fff9e9;
+    border: 1px solid #f6e7b7;
+    border-radius: 10px;
+    padding: 13px;
+    color: #79602b;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #8790a8;
+    font-size: 11px;
+}
+
+[hidden] { display: none !important; }
+
+@media (max-width: 980px) {
+    .dashboard { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .navbar { height: auto; padding: 17px 5%; flex-wrap: wrap; }
+    .navlinks { gap: 13px; }
+    .navlinks a { font-size: 11px; }
+    .navbutton { padding: 9px 11px; font-size: 11px; }
+    .hero { padding: 42px 6%; }
+    .hero-stats { gap: 20px; }
+    .container { padding: 20px 4%; }
+    .card { padding: 18px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .match-grid { gap: 6px; }
+    .match-stat { padding: 12px 7px; }
+    .match-stat strong { font-size: 17px; }
+    .career-card { padding: 13px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+     
+    <div class="brand">Smart Career Guidance</div>
+    <div class="navlinks">
+        <a href="#home">Home</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#results">Career Report</a>
+    </div>
+    <button class="navbutton" onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
+        Get Started ↗
+    </button>
+</nav>
+
+<header class="hero" id="home">
+    <div class="hero-content">
+        <span class="eyebrow"> YOUR FUTURE, YOUR CHOICE</span>
+        <h1>Discover Your<br><span class="gradient-text">Perfect Career Path.</span></h1>
+        <p>
+            Turn your technical skills into career opportunities.
+            Explore suitable roles, identify skills to improve,
+            and build a learning roadmap designed around your goals.
+        </p>
+
+        <div class="hero-stats">
+            <div class="stat"><strong>12+</strong><span>Technical skills</span></div>
+            <div class="stat"><strong>5</strong><span>Career pathways</span></div>
+            <div class="stat"><strong>1</strong><span>Personalized roadmap</span></div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <div>
+        <h2 class="section-title">Your Career Assessment</h2>
+        <p class="section-subtitle">Share your current abilities and discover your next step.</p>
+    </div>
+
+   
+        <section class="card" id="assessment">
+            <div class="card-heading">
+                <div class="heading-icon">👤</div>
+                <div>
+                    <h2>Your Profile</h2>
+                    <p>Complete your career assessment</p>
+                </div>
+            </div>
+
+            <form id="careerForm">
+                <div class="field">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label for="education">Education</label>
+                        <select id="education" required>
+                            <option value="">Select education</option>
+                            <option>Diploma</option>
+                            <option>B.Tech / B.E.</option>
+                            <option>BCA</option>
+                            <option>B.Sc.</option>
+                            <option>MCA / M.Tech</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="level">Skill Level</label>
+                        <select id="level" required>
+                            <option value="">Select level</option>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Technical Skills</label>
+                    <p class="skill-note">Select every skill you have practiced.</p>
+
+                    <div class="skill-grid">
+                        <div class="skill-option"><input id="s-html" type="checkbox" name="skill" value="HTML"><label for="s-html"><span class="skill-emoji">🌐</span> HTML</label></div>
+                        <div class="skill-option"><input id="s-css" type="checkbox" name="skill" value="CSS"><label for="s-css"><span class="skill-emoji">🎨</span> CSS</label></div>
+                        <div class="skill-option"><input id="s-js" type="checkbox" name="skill" value="JavaScript"><label for="s-js"><span class="skill-emoji">⚡</span> JavaScript</label></div>
+                        <div class="skill-option"><input id="s-python" type="checkbox" name="skill" value="Python"><label for="s-python"><span class="skill-emoji">🐍</span> Python</label></div>
+                        <div class="skill-option"><input id="s-java" type="checkbox" name="skill" value="Java"><label for="s-java"><span class="skill-emoji">☕</span> Java</label></div>
+                        <div class="skill-option"><input id="s-cpp" type="checkbox" name="skill" value="C++"><label for="s-cpp"><span class="skill-emoji">💻</span> C / C++</label></div>
+                        <div class="skill-option"><input id="s-sql" type="checkbox" name="skill" value="SQL"><label for="s-sql"><span class="skill-emoji">🗄️</span> SQL</label></div>
+                        <div class="skill-option"><input id="s-excel" type="checkbox" name="skill" value="Excel"><label for="s-excel"><span class="skill-emoji">📊</span> Excel</label></div>
+                        <div class="skill-option"><input id="s-ml" type="checkbox" name="skill" value="Machine Learning"><label for="s-ml"><span class="skill-emoji">🤖</span> AI / ML</label></div>
+                        <div class="skill-option"><input id="s-network" type="checkbox" name="skill" value="Networking"><label for="s-network"><span class="skill-emoji">🌍</span> Networking</label></div>
+                        <div class="skill-option"><input id="s-linux" type="checkbox" name="skill" value="Linux"><label for="s-linux"><span class="skill-emoji">🐧</span> Linux</label></div>
+                        <div class="skill-option"><input id="s-bi" type="checkbox" name="skill" value="Power BI"><label for="s-bi"><span class="skill-emoji">📈</span> Power BI</label></div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="interest">Preferred Career Field</label>
+                    <select id="interest" required>
+                        <option value="">Choose your preferred field</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="Data Analysis">Data Analysis</option>
+                        <option value="AI and Machine Learning">AI & Machine Learning</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Undecided">Help me choose</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="goal">Your Career Goal</label>
+                    <textarea id="goal" placeholder="e.g. Become a software developer or get an internship"></textarea>
+                </div>
+
+                <button type="submit" class="primary-btn">✦ Generate My Career Report →</button>
+                <p id="error" class="error" role="alert" hidden></p>
+
+                <div class="button-row">
+                    <button type="reset" class="secondary-btn">↻ Reset Form</button>
+                    <button type="button" class="secondary-btn" id="demoBtn">Try Demo</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="results" id="results">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="heading-icon">✧</div>
+                    <div>
+                        <h2>Your Career Report</h2>
+                        <p>Recommendations based on your assessment</p>
+                    </div>
+                </div>
+
+                <div id="welcome" class="welcome">
+                    <div class="welcome-icon">🚀</div>
+                    <h3>Your future starts here!</h3>
+                    <p>
+                        Complete your profile and generate your report
+                        to see career matches, skill gaps and a personalized roadmap.
+                    </p>
+                </div>
+
+                <div id="report" hidden>
+                    <div class="result-banner">
+                        <p class="small">YOUR PERSONALIZED REPORT</p>
+                        <h2 id="greeting">Hello!</h2>
+                        <p id="reportSummary"></p>
+                    </div>
+
+                    <div class="match-grid" style="margin-top:15px">
+                        <div class="match-stat"><strong id="bestMatch">—</strong><span>Best career match</span></div>
+                        <div class="match-stat"><strong id="skillCount">0</strong><span>Skills selected</span></div>
+                        <div class="match-stat"><strong id="roadmapCount">4</strong><span>Roadmap stages</span></div>
+                    </div>
+
+                    <h3 class="panel-title" style="margin-top:24px">
+                        💼 Recommended Careers
+                        <small>Ranked by match</small>
+                    </h3>
+                    <div id="careerList"></div>
+
+                    <h3 class="panel-title" style="margin-top:24px">🗺️ Your Learning Roadmap</h3>
+                    <div id="roadmap"></div>
+
+                    <h3 class="panel-title" style="margin-top:24px">🎯 Skills to Develop</h3>
+                    <ul id="tips" class="tips-list"></ul>
+
+                    <div class="button-row">
+                        <button type="button" class="primary-btn" id="printBtn">⬇ Save / Print Report</button>
+                    </div>
+
+                    <p class="section-subtitle" style="margin-top:14px">
+                        Your report is generated in this browser and is not saved to an online account.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-heading">
+                    <div class="heading-icon">📚</div>
+                    <div>
+                        <h2>Recommended Practice Resources</h2>
+                        <p>Choose your skill and start practicing.</p>
+                    </div>
+                    
+                </div>
+
+                <label for="practiceSkill">Select Your Skill</label>
+                <select id="practiceSkill">
+                    <option value="">Choose a technical skill</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    <option value="SQL">SQL</option>
+                    <option value="Java">Java</option>
+                    <option value="Data Analysis">Data Analysis</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Cybersecurity">Cybersecurity</option>
+                </select>
+
+                <div id="practiceResult" class="practice-result">
+                    Select a skill to find exercises.
+                </div>
+           
+           
+
+            <div class="disclaimer">
+                💡 <strong>Career tip:</strong> A match score is an estimate based on your selected skills and interests, not a guarantee of job suitability. Projects, experience and personal preferences matter too.
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>Smart career Guidance · Explore your potential · Build your future</footer>
+
+<script>
+const careerData = [
+    {
+        name: "Frontend Developer",
+        icon: "🎨",
+        field: "Web Development",
+        required: ["HTML", "CSS", "JavaScript"],
+        description: "Design and build responsive, interactive websites.",
+        next: "Learn responsive design, JavaScript DOM, Git and a framework such as React."
+    },
+    {
+        name: "Software Developer",
+        icon: "💻",
+        field: "Software Development",
+        required: ["Python", "Java", "C++"],
+        description: "Develop applications, solve problems and write maintainable code.",
+        next: "Practice data structures, algorithms, Git and application development."
+    },
+    {
+        name: "Data Analyst",
+        icon: "📊",
+        field: "Data Analysis",
+        required: ["SQL", "Excel", "Power BI", "Python"],
+        description: "Analyze datasets and communicate insights through reports.",
+        next: "Practice SQL queries, spreadsheets, visualization and Python data analysis."
+    },
+    {
+        name: "AI / ML Engineer",
+        icon: "🤖",
+        field: "AI and Machine Learning",
+        required: ["Python", "Machine Learning"],
+        description: "Build intelligent systems and data-driven applications.",
+        next: "Study Python, statistics, model evaluation and machine learning projects."
+    },
+    {
+        name: "Cybersecurity Analyst",
+        icon: "🛡️",
+        field: "Cybersecurity",
+        required: ["Networking", "Linux", "Python"],
+        description: "Help detect security risks and protect computer systems.",
+        next: "Learn networking, Linux, security fundamentals and practice in legal labs."
+    }
+];
+
+const $ = id => document.getElementById(id);
+
+function getSelectedSkills() {
+    return [...document.querySelectorAll('input[name="skill"]:checked')]
+        .map(input => input.value);
+}
+
+function calculateCareers(skills, interest, level) {
+    return careerData.map(career => {
+        const matched = career.required.filter(skill => skills.includes(skill));
+        const coverage = matched.length / career.required.length;
+
+        // Skills contribute 70%, interest 20%, and experience level 10%.
+        const interestMatch =
+            interest === "Undecided" ? 0.5 :
+            interest === career.field ? 1 : 0;
+
+        const levelScore = {
+            "Beginner": 0.4,
+            "Intermediate": 0.7,
+            "Advanced": 1
+        }[level] || 0.4;
+
+        let score = Math.round(
+            coverage * 70 + interestMatch * 20 + levelScore * 10
+        );
+
+        // If the user has no relevant skills, don't present interest alone
+        // as proof of a high match.
+        if (matched.length === 0 && interest !== career.field) {
+            score = Math.min(score, 25);
+        }
+
+        return { ...career, matched, score };
+    }).sort((a, b) => b.score - a.score);
+}
+
+function addText(tag, text, className) {
+    const element = document.createElement(tag);
+    element.textContent = text;
+    if (className) element.className = className;
+    return element;
+}
+
+function makeRoadmap(skills, bestCareer, level) {
+    const requiredMissing = bestCareer.required.filter(s => !skills.includes(s));
+
+    let stages = [
+        {
+            title: "Strengthen your foundations",
+            detail: level === "Beginner"
+                ? "Learn the core concepts and practice small exercises regularly."
+                : "Review core concepts and identify weak areas."
+        },
+        {
+            title: "Close your skill gaps",
+            detail: requiredMissing.length
+                ? "Focus next on: " + requiredMissing.join(", ") + "."
+                : "Deepen your knowledge of your existing relevant skills."
+        },
+        {
+            title: "Build portfolio projects",
+            detail: bestCareer.next
+        },
+        {
+            title: "Prepare for opportunities",
+            detail: "Document your projects, update your resume and practice interviews."
+        }
+    ];
+
+    return stages;
+}
+
+function renderReport() {
+    const name = $("name").value.trim();
+    const level = $("level").value;
+    const education = $("education").value;
+    const interest = $("interest").value;
+    const goal = $("goal").value.trim();
+    const skills = getSelectedSkills();
+
+    $("error").hidden = true;
+
+    if (!skills.length) {
+        $("error").textContent = "Please select at least one technical skill.";
+        $("error").hidden = false;
+        return;
+    }
+
+    const ranked = calculateCareers(skills, interest, level);
+    const top = ranked.slice(0, 3);
+    const best = top[0];
+
+    $("welcome").hidden = true;
+    $("report").hidden = false;
+    $("greeting").textContent = "Hello, " + name + " 👋";
+    $("reportSummary").textContent =
+        "Based on your " + level.toLowerCase() +
+        " skill level and " + education +
+        " background, here are your suggested career paths.";
+
+    $("bestMatch").textContent = best.score + "%";
+    $("skillCount").textContent = skills.length;
+
+    // Render career cards
+    const careerList = $("careerList");
+    careerList.replaceChildren();
+
+    top.forEach((career, index) => {
+        const article = document.createElement("article");
+        article.className = "career-card";
+
+        const topRow = document.createElement("div");
+        topRow.className = "career-top";
+
+        topRow.appendChild(addText("div", career.icon, "career-icon"));
+
+        const info = document.createElement("div");
+        info.className = "career-info";
+        info.appendChild(addText("h4",
+            (index === 0 ? "★ " : "") + career.name));
+        info.appendChild(addText("p", career.description));
+
+        topRow.appendChild(info);
+        topRow.appendChild(addText("div", career.score + "%", "match-percent"));
+        article.appendChild(topRow);
+
+        const track = document.createElement("div");
+        track.className = "progress-track";
+        const fill = document.createElement("div");
+        fill.className = "progress-fill";
+        fill.style.width = career.score + "%";
+        track.appendChild(fill);
+        article.appendChild(track);
+
+        article.appendChild(addText("p",
+            "Relevant skills: " +
+            (career.matched.join(", ") || "No direct skill match yet"),
+            "section-subtitle"));
+
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        tags.appendChild(addText("span", career.field, "tag"));
+        tags.appendChild(addText("span",
+            career.matched.length + " of " + career.required.length +
+            " core skills", "tag"));
+        article.appendChild(tags);
+
+        careerList.appendChild(article);
+    });
+
+    // Roadmap for the highest ranked career
+    const roadmap = $("roadmap");
+    roadmap.replaceChildren();
+
+    makeRoadmap(skills, best, level).forEach((stage, index) => {
+        const item = document.createElement("div");
+        item.className = "roadmap-item";
+        item.appendChild(addText("div", String(index + 1), "roadmap-dot"));
+        item.appendChild(addText("h4", stage.title));
+        item.appendChild(addText("p", stage.detail));
+        roadmap.appendChild(item);
+    });
+
+    // Skill-gap and next-step advice
+    const tips = $("tips");
+    tips.replaceChildren();
+
+    const missing = best.required.filter(s => !skills.includes(s));
+    const advice = [];
+
+    if (missing.length) {
+        advice.push("For " + best.name + ", prioritize learning: " +
+            missing.join(", ") + ".");
+    } else {
+        advice.push("You selected all listed core skills for " + best.name +
+            ". Build projects to demonstrate your proficiency.");
+    }
+
+    advice.push(best.next);
+    advice.push(level === "Beginner"
+        ? "Start with small projects and build confidence before tackling complex work."
+        : level === "Intermediate"
+        ? "Develop a portfolio with two or three complete, documented projects."
+        : "Demonstrate advanced problem-solving and prepare for technical interviews.");
+
+    advice.push("Use internships, open-source work or practical exercises to gain experience.");
+
+    [...new Set(advice)].forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        tips.appendChild(li);
+    });
+
+    if (goal) {
+        const goalLi = document.createElement("li");
+        goalLi.textContent = "Personal goal: " + goal;
+        tips.appendChild(goalLi);
+    }
+
+    $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+$("careerForm").addEventListener("submit", event => {
+    event.preventDefault();
+    renderReport();
+});
+
+$("careerForm").addEventListener("reset", () => {
+    setTimeout(() => {
+        $("error").hidden = true;
+        $("report").hidden = true;
+        $("welcome").hidden = false;
+    }, 0);
+});
+
+$("demoBtn").addEventListener("click", () => {
+    $("name").value = "Alex";
+    $("education").value = "B.Tech / B.E.";
+    $("level").value = "Intermediate";
+    $("interest").value = "Data Analysis";
+    $("goal").value = "Build a data analyst portfolio";
+
+    const demoSkills = ["Python", "SQL", "Excel"];
+    document.querySelectorAll('input[name="skill"]').forEach(input => {
+        input.checked = demoSkills.includes(input.value);
+    });
+
+    renderReport();
+});
+
+$("printBtn").addEventListener("click", () => window.print());
+const resources = {
+    HTML: [
+        ["HTML Tutorial and Exercises", "https://www.w3schools.com/html/"],
+        ["HTML Projects", "https://www.freecodecamp.org/learn/"]
+    ],
+    CSS: [
+        ["CSS Tutorial and Exercises", "https://www.w3schools.com/css/"],
+        ["Frontend Projects", "https://www.frontendmentor.io/"]
+    ],
+    JavaScript: [
+        ["JavaScript Exercises", "https://www.w3schools.com/js/"],
+        ["JavaScript Challenges", "https://www.freecodecamp.org/learn/"]
+    ],
+    Python: [
+        ["Python Exercises", "https://www.w3schools.com/python/"],
+        ["Python Coding Problems", "https://www.hackerrank.com/domains/python"]
+    ],
+    SQL: [
+        ["SQL Exercises", "https://www.w3schools.com/sql/"],
+        ["SQL Practice Problems", "https://www.hackerrank.com/domains/sql"]
+    ],
+    Java: [
+        ["Java Exercises", "https://www.w3schools.com/java/"],
+        ["Java Coding Challenges", "https://www.hackerrank.com/domains/java"]
+    ],
+    "Data Analysis": [
+        ["Data Science Practice", "https://www.kaggle.com/"],
+        ["Python Data Analysis", "https://www.freecodecamp.org/learn/"]
+    ],
+    "Machine Learning": [
+        ["Machine Learning Courses", "https://www.kaggle.com/learn"],
+        ["Google Machine Learning Courses", "https://developers.google.com/machine-learning"]
+    ],
+    Cybersecurity: [
+        ["Cybersecurity Training", "https://tryhackme.com/"],
+        ["Cisco Networking Academy", "https://www.netacad.com/"]
+    ]
+};
+
+const skillSelect = document.getElementById("practiceSkill");
+const practiceResult = document.getElementById("practiceResult");
+
+skillSelect.addEventListener("change", function() {
+    practiceResult.replaceChildren();
+
+    const skill = this.value;
+
+    if (!skill) {
+        practiceResult.textContent =
+            "Select a skill to find exercises.";
+        return;
+    }
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Practice " + skill;
+    practiceResult.appendChild(heading);
+
+    resources[skill].forEach(resource => {
+        const paragraph = document.createElement("p");
+        const link = document.createElement("a");
+
+        link.href = resource[1];
+        link.textContent = resource[0] + " ↗";
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        paragraph.appendChild(link);
+        practiceResult.appendChild(paragraph);
+    });
+});
+</script>
+
+<style>
+@media print {
+    .navbar, .hero, #assessment, footer,
+    .button-row, .disclaimer { display: none !important; }
+
+    body { background: white; }
+    .container { max-width: 100%; padding: 0; }
+    .dashboard { display: block; }
+    .card { box-shadow: none; border: none; padding: 0; }
+    .results { display: block; }
+    #report { display: block !important; }
+    .career-card, .result-banner, .roadmap-item {
+        break-inside: avoid;
+    }
+}
+
+</style>
+
+</body>
+</html>
+
